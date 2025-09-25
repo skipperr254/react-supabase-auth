@@ -1,3 +1,5 @@
+import AuthDivider from "@/components/AuthDivider";
+import GoogleAuthButton from "@/components/GoogleAuthButton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,6 +24,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -71,6 +74,24 @@ export default function SignUp() {
     }
   };
 
+  const signUpWithGoogle = async () => {
+    setGoogleLoading(true);
+    setMessage("");
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: window.location.origin + "/dashboard",
+        },
+      });
+      if (error) throw error;
+    } catch (error: any) {
+      setMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className='min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 flex items-center justify-center p-4'>
       <div className='w-full max-w-md animate-in fade-in-0 slide-in-from-bottom-4 duration-1000'>
@@ -85,9 +106,21 @@ export default function SignUp() {
               Create Account
             </CardTitle>
             <CardDescription className='text-center'>
-              Enter your details to create your account
+              Sign up for your account using email or Google
             </CardDescription>
           </CardHeader>
+
+          <CardContent className='space-y-6'>
+            {/* Google Sign Up Button */}
+            <GoogleAuthButton
+              onGoogleAuth={signUpWithGoogle}
+              loading={googleLoading}
+              mode='signup'
+              disabled={googleLoading}
+            />
+          </CardContent>
+
+          <AuthDivider />
 
           <CardContent>
             <form onSubmit={handleSignUp} className='space-y-4'>
