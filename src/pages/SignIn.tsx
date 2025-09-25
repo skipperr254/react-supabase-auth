@@ -126,7 +126,7 @@ export default function SignIn() {
                       <button
                         onClick={() => {
                           navigate("/verify-otp", {
-                            state: { email, type: "sign-up" },
+                            state: { email, type: "signup" },
                           });
                         }}
                         className='ml-1 text-blue-600 hover:underline font-medium transition-all duration-300'

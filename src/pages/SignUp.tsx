@@ -56,7 +56,7 @@ export default function SignUp() {
 
       if (data.user && !data.user.email_confirmed_at) {
         setMessage("Please check your email for the OTP verification code.");
-        navigate("/verify-otp", { state: { email, type: "sign-up" } });
+        navigate("/verify-otp", { state: { email, type: "signup" } });
       }
     } catch (error: any) {
       setMessage(error.message);
