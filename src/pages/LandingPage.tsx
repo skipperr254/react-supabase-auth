@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useAuth } from "@/hooks/useAuth";
 import {
   Settings,
   Shield,
@@ -12,6 +13,7 @@ import { Link } from "react-router-dom";
 
 // Landing Page Component
 export default function LandingPage() {
+  const { user } = useAuth();
   return (
     <div className='min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 flex items-center justify-center p-4'>
       <div className='max-w-4xl w-full'>
@@ -30,27 +32,42 @@ export default function LandingPage() {
           </p>
 
           <div className='flex flex-col sm:flex-row gap-4 justify-center items-center animate-in slide-in-from-bottom-4 duration-1000 delay-300'>
-            <Link to='/sign-up'>
-              <Button
-                size='lg'
-                className='bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 group'
-              >
-                <UserPlus className='mr-2 h-5 w-5 group-hover:rotate-12 transition-transform duration-300' />
-                Get Started
-                <ArrowRight className='ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300' />
-              </Button>
-            </Link>
+            {user ? (
+              <Link to='/dashboard'>
+                <Button
+                  size='lg'
+                  className='bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 group'
+                >
+                  <Shield className='mr-2 h-5 w-5 group-hover:rotate-12 transition-transform duration-300' />
+                  Go to Dashboard
+                  <ArrowRight className='ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300' />
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Link to='/sign-up'>
+                  <Button
+                    size='lg'
+                    className='bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 group'
+                  >
+                    <UserPlus className='mr-2 h-5 w-5 group-hover:rotate-12 transition-transform duration-300' />
+                    Get Started
+                    <ArrowRight className='ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300' />
+                  </Button>
+                </Link>
 
-            <Link to='/sign-in'>
-              <Button
-                variant='outline'
-                size='lg'
-                className='border-2 hover:bg-gray-50 shadow-lg hover:shadow-xl transition-all duration-300'
-              >
-                <LogIn className='mr-2 h-5 w-5' />
-                Sign In
-              </Button>
-            </Link>
+                <Link to='/sign-in'>
+                  <Button
+                    variant='outline'
+                    size='lg'
+                    className='border-2 hover:bg-gray-50 shadow-lg hover:shadow-xl transition-all duration-300'
+                  >
+                    <LogIn className='mr-2 h-5 w-5' />
+                    Sign In
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
 

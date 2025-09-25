@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/utils/supabase";
 import { AlertCircle, Eye, EyeOff, Lock, LogIn, Mail } from "lucide-react";
 import { useState } from "react";
@@ -23,6 +24,11 @@ export default function SignIn() {
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  const { user } = useAuth();
+  if (user) {
+    navigate("/dashboard");
+  }
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/utils/supabase";
 import { AlertCircle, Eye, EyeOff, Lock, Mail, UserPlus } from "lucide-react";
 import { useState } from "react";
@@ -26,6 +27,11 @@ export default function SignUp() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
+
+  const { user } = useAuth();
+  if (user) {
+    navigate("/dashboard");
+  }
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
