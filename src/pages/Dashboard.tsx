@@ -21,7 +21,7 @@ import {
   Sparkles,
   LogIn,
 } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/AuthProvider";
 import { Link } from "react-router-dom";
 
 // Dashboard Component

@@ -11,6 +11,8 @@ import { useAuth } from "./hooks/useAuth";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 
+import AuthProvider from "./context/AuthProvider";
+
 function App() {
   function AuthRedirect() {
     const { user } = useAuth();
@@ -18,7 +20,8 @@ function App() {
   }
 
   return (
-    <Routes>
+    <AuthProvider>
+      <Routes>
       <Route path='/' element={<LandingPage />} />
       <Route path='/sign-in' element={<SignIn />} />
       <Route path='/sign-up' element={<SignUp />} />
@@ -34,6 +37,7 @@ function App() {
       {/* Fallback / not found route */}
       <Route path='*' element={<AuthRedirect />} />
     </Routes>
+    </AuthProvider>
   );
 }
 
