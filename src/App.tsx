@@ -13,6 +13,7 @@ import ResetPassword from "./pages/ResetPassword";
 
 import AuthProvider from "./context/AuthProvider";
 import ErrorBoundary from "./components/ErrorBoundary";
+import SecurityHeaders from "./components/SecurityHeaders";
 
 function App() {
   function AuthRedirect() {
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <ErrorBoundary>
+      <SecurityHeaders />
       <AuthProvider>
       <Routes>
       <Route path='/' element={<LandingPage />} />
