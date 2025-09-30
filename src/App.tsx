@@ -12,6 +12,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 
 import AuthProvider from "./context/AuthProvider";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   function AuthRedirect() {
@@ -20,7 +21,8 @@ function App() {
   }
 
   return (
-    <AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
       <Routes>
       <Route path='/' element={<LandingPage />} />
       <Route path='/sign-in' element={<SignIn />} />
@@ -38,6 +40,7 @@ function App() {
       <Route path='*' element={<AuthRedirect />} />
     </Routes>
     </AuthProvider>
+    </ErrorBoundary>
   );
 }
 
